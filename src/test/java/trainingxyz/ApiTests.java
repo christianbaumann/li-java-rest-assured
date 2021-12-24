@@ -41,17 +41,19 @@ public class ApiTests {
         when().
             get(endpoint).
         then().
-            log().
-                body().
-                assertThat().
-                    statusCode(200).
-                    body("records.size()", greaterThan(0)).
-                    body("records.id", everyItem(notNullValue())).
-                    body("records.name", everyItem(notNullValue())).
-                    body("records.description", everyItem(notNullValue())).
-                    body("records.price", everyItem(notNullValue())).
-                    body("records.category_id", everyItem(notNullValue())).
-                    body("records.category_name", everyItem(notNullValue()));
+            log().headers().
+            log().body().
+            assertThat().
+                statusCode(200).
+                headers("Content-Type", equalTo("application/json; charset=UTF-8")).
+                body("records.size()", greaterThan(0)).
+                body("records.id", everyItem(notNullValue())).
+                body("records.name", everyItem(notNullValue())).
+                body("records.description", everyItem(notNullValue())).
+                body("records.price", everyItem(notNullValue())).
+                body("records.category_id", everyItem(notNullValue())).
+                body("records.category_name", everyItem(notNullValue())).
+                body("records.id[0]", equalTo("1006"));
     }
 
     @Test
